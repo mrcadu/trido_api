@@ -5,8 +5,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="status_tarefa")
 public class StatusTarefa {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column

@@ -23,13 +23,13 @@ public class Tarefa {
     @JoinColumn(name="status_tarefa_id")
     private StatusTarefa statusTarefa;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany()
     @JoinTable(name="tarefa_metas",
                 joinColumns={ @JoinColumn(name="tarefa_id", referencedColumnName="id") },
                 inverseJoinColumns={ @JoinColumn(name="meta_id", referencedColumnName="id") })
     private List<Meta> metas;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany()
     @JoinTable(name="tarefa_papeis",
             joinColumns={ @JoinColumn(name="tarefa_id", referencedColumnName="id") },
             inverseJoinColumns={ @JoinColumn(name="papel_id", referencedColumnName="id") })

@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name="meta")
 public class Meta {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column

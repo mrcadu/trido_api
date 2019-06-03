@@ -7,6 +7,7 @@ import java.util.UUID;
 @Table(name="papel")
 public class Papel {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column
