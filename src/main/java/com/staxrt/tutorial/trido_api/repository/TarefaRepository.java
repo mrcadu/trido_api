@@ -11,6 +11,6 @@ import java.util.Collection;
 public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
     @Query(value = "SELECT t FROM Tarefa t " +
             "join t.statusTarefa st" +
-            " WHERE st.codigo = 'ATV' ")
+            " WHERE st.codigo = 'ATV' order by t.data desc ")
     Collection<Tarefa> findAllTarefasAtivas();
 }

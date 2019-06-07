@@ -23,14 +23,16 @@ public class Tarefa {
     @JoinColumn(name="status_tarefa_id")
     private StatusTarefa statusTarefa;
 
-    @OneToMany()
+    @ManyToMany()
     @JoinTable(name="tarefa_metas",
+                uniqueConstraints={@UniqueConstraint(columnNames={"tarefa_id", "meta_id"})},
                 joinColumns={ @JoinColumn(name="tarefa_id", referencedColumnName="id") },
                 inverseJoinColumns={ @JoinColumn(name="meta_id", referencedColumnName="id") })
     private List<Meta> metas;
 
-    @OneToMany()
+    @ManyToMany()
     @JoinTable(name="tarefa_papeis",
+            uniqueConstraints={@UniqueConstraint(columnNames={"tarefa_id", "papel_id"})},
             joinColumns={ @JoinColumn(name="tarefa_id", referencedColumnName="id") },
             inverseJoinColumns={ @JoinColumn(name="papel_id", referencedColumnName="id") })
     private List<Papel> papeis;
@@ -39,13 +41,10 @@ public class Tarefa {
     private String nome;
 
     @Column
-    private Date duracao;
+    private String duracao;
 
     @Column
     private Date data;
-
-    @Column(name="created_at")
-    private Date createdAt;
 
     @Column(name="updated_at")
     private Date updatedAt;
@@ -106,11 +105,11 @@ public class Tarefa {
         this.nome = nome;
     }
 
-    public Date getDuracao() {
+    public String getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(Date duracao) {
+    public void setDuracao(String duracao) {
         this.duracao = duracao;
     }
 
@@ -120,14 +119,6 @@ public class Tarefa {
 
     public void setData(Date data) {
         this.data = data;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Date getUpdatedAt() {

@@ -21,9 +21,9 @@ public class TarefaController {
         return tarefaRepository.findAll();
     }
 
-    @GetMapping("/tarefas/ativas")
+    @GetMapping("/tarefas/active")
     public List<Tarefa> getTarefasAtivas(){
-        return (List<Tarefa>) tarefaRepository.findAll();
+        return (List<Tarefa>) tarefaRepository.findAllTarefasAtivas();
     }
 
     @GetMapping("/tarefas/{id}")
@@ -56,7 +56,7 @@ public class TarefaController {
         Tarefa tarefa =
                 tarefaRepository
                         .findById(tarefaId)
-                        .orElseThrow(() -> new ResourceNotFoundException("User not found on :: " + tarefaId));
+                        .orElseThrow(() -> new ResourceNotFoundException("tarefa not found on :: " + tarefaId));
 
         Map<String, Boolean> response = new HashMap<>();
         tarefaRepository.delete(tarefa);
