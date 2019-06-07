@@ -45,10 +45,18 @@ public class TarefaController {
             throws ResourceNotFoundException {
         Tarefa tarefa = tarefaRepository
                 .findById(tarefaId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found on :: " + tarefaId));
+                .orElseThrow(() -> new ResourceNotFoundException("tarefa not found on :: " + tarefaId));
         tarefa.setNome(tarefaDetails.getNome());
-        final Tarefa updatedUser = tarefaRepository.save(tarefa);
-        return ResponseEntity.ok(updatedUser);
+        tarefa.setDuracao(tarefaDetails.getDuracao());
+        tarefa.setData(tarefaDetails.getData());
+        tarefa.setEquilibrio(tarefaDetails.getEquilibrio());
+        tarefa.setMetas(tarefaDetails.getMetas());
+        tarefa.setPapeis(tarefaDetails.getPapeis());
+        tarefa.setStatusTarefa(tarefaDetails.getStatusTarefa());
+        tarefa.setTriade(tarefaDetails.getTriade());
+        tarefa.setUpdatedAt(tarefaDetails.getUpdatedAt());
+        final Tarefa updatedTarefa = tarefaRepository.save(tarefa);
+        return ResponseEntity.ok(updatedTarefa);
     }
 
     @DeleteMapping("/tarefas/{id}")
