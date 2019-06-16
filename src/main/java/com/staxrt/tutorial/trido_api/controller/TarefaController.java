@@ -58,7 +58,7 @@ public class TarefaController {
         final Tarefa updatedTarefa = tarefaRepository.save(tarefa);
         return ResponseEntity.ok(updatedTarefa);
     }
-
+    @CrossOrigin()
     @DeleteMapping("/tarefas/{id}")
     public Map<String, Boolean> deleteTarefa(@PathVariable(value = "id") Long tarefaId) throws Exception {
         Tarefa tarefa =

@@ -48,6 +48,7 @@ public class PapelController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @CrossOrigin()
     @DeleteMapping("/papeis/{id}")
     public Map<String, Boolean> deletePapel(@PathVariable(value = "id") Long papelId) throws Exception {
         Papel papel =

@@ -48,6 +48,7 @@ public class MetaController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @CrossOrigin()
     @DeleteMapping("/metas/{id}")
     public Map<String, Boolean> deleteMeta(@PathVariable(value = "id") Long metaId) throws Exception {
         Meta meta =
