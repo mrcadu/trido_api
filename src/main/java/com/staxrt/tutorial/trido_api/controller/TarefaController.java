@@ -1,7 +1,9 @@
 package com.staxrt.tutorial.trido_api.controller;
 
 import com.staxrt.tutorial.trido_api.exception.ResourceNotFoundException;
+import com.staxrt.tutorial.trido_api.model.StatusTarefa;
 import com.staxrt.tutorial.trido_api.model.Tarefa;
+import com.staxrt.tutorial.trido_api.repository.StatusTarefaRepository;
 import com.staxrt.tutorial.trido_api.repository.TarefaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ public class TarefaController {
 
     @Autowired
     private TarefaRepository tarefaRepository;
+
+    @Autowired
+    StatusTarefaRepository statusTarefaRepository;
 
     @GetMapping("/tarefas")
     public List<Tarefa> getAllTarefas() {
@@ -39,22 +44,18 @@ public class TarefaController {
         return tarefaRepository.save(tarefa);
     }
 
-    @PutMapping("/tarefas/{id}")
+    @CrossOrigin()
+    @PutMapping("/tarefas/{id}/complete")
     public ResponseEntity<Tarefa> updateTarefa(
-            @PathVariable(value = "id") Long tarefaId, @Valid @RequestBody Tarefa tarefaDetails)
+            @PathVariable(value = "id") Long tarefaId)
             throws ResourceNotFoundException {
         Tarefa tarefa = tarefaRepository
                 .findById(tarefaId)
                 .orElseThrow(() -> new ResourceNotFoundException("tarefa not found on :: " + tarefaId));
-        tarefa.setNome(tarefaDetails.getNome());
-        tarefa.setDuracao(tarefaDetails.getDuracao());
-        tarefa.setData(tarefaDetails.getData());
-        tarefa.setEquilibrio(tarefaDetails.getEquilibrio());
-        tarefa.setMetas(tarefaDetails.getMetas());
-        tarefa.setPapeis(tarefaDetails.getPapeis());
-        tarefa.setStatusTarefa(tarefaDetails.getStatusTarefa());
-        tarefa.setTriade(tarefaDetails.getTriade());
-        tarefa.setUpdatedAt(tarefaDetails.getUpdatedAt());
+        StatusTarefa statusTarefa = statusTarefaRepository.findById(3L).orElseThrow(
+                () -> new ResourceNotFoundException("statusTarefa not found on :: " + 3)
+        );
+        tarefa.setStatusTarefa(statusTarefa);
         final Tarefa updatedTarefa = tarefaRepository.save(tarefa);
         return ResponseEntity.ok(updatedTarefa);
     }
